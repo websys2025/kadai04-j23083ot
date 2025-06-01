@@ -37,6 +37,10 @@
 
                     // 配列の内容を項目毎に出力
                     // 課題4-1. ここにコードを書く
+                    for (let i = 0; i < items.length; i++) {
+                        item_list[i] = new Item(items[i].name, items[i].price, items[i].stock);
+                    }
+
                     console.log(""); // 空行の出力
                 }
                 
@@ -45,9 +49,25 @@
                     if (this.stock >= 1) { 
                         console.log("商品番号: "+this.id+", 商品名: "+this.name+"を購入します。");
                         // 課題4-2. ここにコードを書く
+                        for (let i = 0; i < item_list.length; i++) {
+                            const item = item_list[i];
+                            itemArea.innerHTML += `
+                                <tr>
+                                    <td>${item.name}</td>
+                                    <td>${item.price}円</td>
+                                    <td id="stock${item.id}">${item.stock}</td>
+                                    <td><button id="button${item.id}">購入</button></td>
+                                </tr>
+                            `;
+                        }
+
                         // 購入による商品の在庫削減処理
                         
                         // 課題4-3. ここにコードを書く
+                        document.getElementById("button" + item_list[i].id).onclick = () => {
+                            item_list[i].buyItem();
+                        }
+
                         // 在庫用のエレメントを抽出し、HTML内の個数を更新
                     } else console.log(this.name+"は商品の在庫がないため購入できません。");
                 }
